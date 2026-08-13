@@ -1,0 +1,24 @@
+<html>
+    <body>
+        <button type="button" id="btnAllocate">Allocate </button>
+        <button type="button" id="btnDeAllocate">DeAllocate </button>
+    </body>
+    <script>
+        let arr,arr2;
+        document.getElementById("btnAllocate")
+            .addEventListener("click", function () {
+                console.log('allocate');
+                arr = [];
+                for (let i = 0; i < 10000; i++) {
+                    arr.push(new Array(1000).fill(i));
+                }
+                arr2 = arr;
+            });
+        document.getElementById("btnDeAllocate")
+            .addEventListener("click", function () {
+                console.log('deallocate');
+                arr = null;
+                arr2 = null;
+            });
+    </script>
+</html>
