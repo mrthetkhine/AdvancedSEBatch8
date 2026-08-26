@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -124,5 +126,10 @@ public class StandardTest {
 			// Simulate task that takes more than 10 ms.
 			Thread.sleep(50);
 		});
+	}
+	@RepeatedTest(3)
+	void repeatTest(RepetitionInfo repetitionInfo)
+	{
+		System.out.println("Repeated test "+repetitionInfo.getCurrentRepetition());
 	}
 }

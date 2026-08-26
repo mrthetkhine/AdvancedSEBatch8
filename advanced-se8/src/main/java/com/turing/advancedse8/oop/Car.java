@@ -7,7 +7,7 @@ public class Car {
 	{
 		this.engine = engine;
 	}
-	void start()
+	public void start()
 	{
 		System.out.println("Car start");
 		this.engine.start();
