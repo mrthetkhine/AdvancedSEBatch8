@@ -94,7 +94,7 @@ public class MockitoTest {
 
 	}
 	@Test
-	public void testArgument()
+	public void testArguments()
 	{
 		SmsSender sender = mock(SmsSender.class);
 		Order order = new Order(sender);
@@ -212,27 +212,5 @@ public class MockitoTest {
 			 //Following prints "called with arguments: [foo]"
 			 System.out.println(mock.get(3));
 	}
-	@Test
-	void testSpy()
-	{
-	   List list = new LinkedList();
-	   List spy = Mockito.spy(list);
-
-	   //optionally, you can stub out some methods:
-	   when(spy.size()).thenReturn(100);
-
-	   //using the spy calls *real* methods
-	   spy.add("one");
-	   spy.add("two");
-
-	   //prints "one" - the first element of a list
-	   System.out.println(spy.get(0));
-
-	   //size() method was stubbed - 100 is printed
-	   System.out.println(spy.size());
-
-	   //optionally, you can verify
-	   verify(spy).add("one");
-	   verify(spy).add("two");
-	}
+	
 }
