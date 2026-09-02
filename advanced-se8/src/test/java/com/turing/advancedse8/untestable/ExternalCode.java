@@ -12,6 +12,15 @@ class Order
 		 * */
 	}
 }
+/*
+ * Solution
+ * SmsSender sender;
+ * void order(int orderId)
+ * {
+ * 	  sender.sendSMS("Order ");
+ * }
+ * 
+ * */
 public class ExternalCode {
 
 }
