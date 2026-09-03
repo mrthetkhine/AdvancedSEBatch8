@@ -1,0 +1,41 @@
+<html>
+    <script>
+        let module ={
+            method1()
+            {
+                //console.log('method1 was called');
+                console.log("Method 1 business logic");
+            },
+            method2()
+            {
+                //console.log('method2 was called');
+                console.log("Method 2 business logic");
+            },
+            method3()
+            {
+                //console.log('method3 was called');
+                console.log("Method 3 business logic");
+            }
+        }
+        function logger(obj)
+        {
+            for(let key in obj)
+            {
+                if(typeof obj[key] ==='function')
+                {
+                    let originalMethod = obj[key];
+                    obj[key] = function()
+                    {
+                        console.log(`Method ${key} was called`);
+                        return originalMethod.apply(this, arguments);
+                    }
+                }
+                
+            }
+        }
+        logger(module);
+        module.method1();
+        module.method2();
+        module.method3();
+    </script>
+</html>

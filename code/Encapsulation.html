@@ -1,0 +1,46 @@
+<html>
+    <script>
+
+        let stack = {
+            items:[],
+            tops: -1,
+        }
+
+        function push(stack,item) {
+            stack.items[++stack.tops] = item;
+        }
+        function pop(stack) {
+            if(stack.tops == -1) {
+                return "Stack is empty";
+            }
+            let item = stack.items[stack.tops--];
+            return item;
+        }
+        push(stack, 10);
+        push(stack, 20);
+        console.log(pop(stack));
+        console.log(pop(stack));    
+
+        class Stack
+        {
+            constructor() {
+                this.items = [];
+                this.tops = -1;
+            }
+            push(item) {
+                this.items[++this.tops] = item;
+            }
+            pop() {
+                if(this.tops == -1) {
+                    return "Stack is empty";
+                }
+                let item = this.items[this.tops--];
+                return item;
+            }
+        }
+        let stack1 = new Stack();
+        stack1.push(100);
+        stack1.push(200);
+        console.log(stack1.pop());
+    </script>
+</html>
