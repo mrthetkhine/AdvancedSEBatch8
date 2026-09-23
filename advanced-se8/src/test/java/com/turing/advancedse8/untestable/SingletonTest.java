@@ -1,6 +1,6 @@
 package com.turing.advancedse8.untestable;
 
-import com.turing.advancedse8.designpattern.Singleton;
+import com.turing.advancedse8.designpattern.singleton.Singleton;
 
 public class SingletonTest {
 	public static void main(String[]args)
