@@ -1,0 +1,46 @@
+<html>
+    <body>
+        <div id="container">
+            Container
+        </div>    
+    </body>
+    <script>
+        document.getElementById('container')
+                .addEventListener('click',function(){
+                        console.log('Handler 1');
+                });
+         document.getElementById('container')
+                .addEventListener('click',function(){
+                        console.log('Handler 2');
+                });   
+        class Emitter
+        {
+            handlers={};
+            on(name,handler)
+            {
+               let handlers = this.handlers[name] || [];
+               handlers.push(handler);
+               this.handlers[name] = handlers;
+            }
+            emit(name,data)
+            {
+                let handlers = this.handlers[name] || [];
+                for(let handler of handlers)
+                {
+                    handler(data);
+                }
+            }
+        }   
+        const myEmitter = new Emitter();   // Create an instance
+
+        // 1. Register a listener (Subscriber)
+        myEmitter.on('event', (data) => {
+            console.log(`Event `,data);
+        });
+        myEmitter.on('event', (data) => {
+            console.log(`Event2 `,data);
+        });
+        // 2. Trigger the event (Publisher)
+        myEmitter.emit('event', 'Alice'); 
+    </script>
+</html>
