@@ -1,0 +1,31 @@
+<html>
+    <script>
+        let module ={
+            method1()
+            {
+                //console.log('method1 was called');
+                console.log("Method 1 business logic");
+            },
+            method2()
+            {
+                //console.log('method2 was called');
+                console.log("Method 2 business logic");
+            },
+            method3()
+            {
+                //console.log('method3 was called');
+                console.log("Method 3 business logic");
+            }
+        }
+        let loggingHandler = {
+            get(target, prop, receiver) {
+                console.log(`Method ${prop} was called`);
+                return target[prop];
+            },
+        }
+        const proxy = new Proxy(module, loggingHandler);
+        proxy.method1();
+        proxy.method2();
+        proxy.method3();
+    </script>
+</html>
