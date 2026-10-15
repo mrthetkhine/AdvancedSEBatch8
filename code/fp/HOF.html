@@ -1,0 +1,27 @@
+<html>
+    <body>
+            
+    </body>
+    <script>
+        function hello()
+        {
+            console.log('Hello');
+        }
+        function acceptFun(fun)
+        {
+            console.log('accept fun ');
+            fun();
+        }
+        acceptFun(hello);
+        function getFun()
+        {
+            console.log('getFun');
+            return function()
+            {
+                console.log('Function returend from getFun')
+            };
+        }
+        getFun()();
+
+    </script>
+</html>

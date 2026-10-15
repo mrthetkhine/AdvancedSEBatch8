@@ -1,0 +1,37 @@
+<html>
+    <body>
+            
+    </body>
+    <script>
+
+        let i = 10;
+        function getData()
+        {
+            return i;
+        }               
+        function update(obj)
+        {
+            obj.address = 'YGN';
+        }
+        let obj = {
+            name: "Jhon",
+            age: 45,
+            city: "New York",
+            isMarried: true
+        }
+        update(obj);
+        console.log(obj);
+
+        function updatePure(obj)
+        {
+            return {...obj,address:'YGN'}
+        }
+        let obj2 = updatePure(obj);
+        console.log(obj2);
+
+        function getDate()
+        {
+            return new Date();
+        }
+    </script>
+</html>

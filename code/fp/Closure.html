@@ -1,0 +1,49 @@
+<html>
+    <body>
+            
+    </body>
+    <script>
+        function outer()
+        {
+            console.log('outer');
+            let i = 0;
+            return function inner()
+            {
+                console.log('inner');
+                i++;
+                console.log(i);
+            }
+            
+        }
+        let fun = outer();
+        console.log('fun ',fun());
+        console.log('fun ',fun());
+
+        function unique()
+        {
+            let count = 0;
+            return function()
+            {
+                count++;
+                return count;
+            }
+        }
+        let next = unique();
+        console.log(next());
+        console.log(next());
+        console.log(next());
+        next = unique();
+        console.log(next());
+
+        function add(x,y)
+        {
+            return x+y;
+        }
+        console.log('add(1,2 ) ',add(1,2));
+
+        let add2 = (x,y)=>{
+            return x+y;
+        }
+        console.log('add2(1,2 ) ',add2(1,2));
+    </script>
+</html>
