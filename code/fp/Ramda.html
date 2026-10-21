@@ -1,0 +1,28 @@
+<html>
+    <body>
+            
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.31.3/dist/ramda.min.js"></script>
+    <script>
+        console.log('R.add(1)(2) ',R.add(1)(2));
+        console.log('R.add(1,2) ',R.add(1,2));
+        
+        function add(x,y)
+        {
+            return x+y;
+        }
+        let curriedAdd =R.curry(add);
+        console.log('curriedAdd(1)(2) ',curriedAdd(1)(2));
+
+        const equals3 = R.equals(3);
+        console.log('R.all ',R.all(equals3)([1,2,3]));
+        console.log('R.all ',R.all(equals3)([3,3,3]));
+
+        console.log('R.identity ',R.identity(3));
+        console.log('R.identity{} ',R.identity({}));
+
+        //a/b
+        // x/2 + 5
+        console.log('R.pipe ',R.pipe(R.flip(R.divide)(2),R.add(5))(10));
+    </script>
+</html>

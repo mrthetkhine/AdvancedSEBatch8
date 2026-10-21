@@ -1,0 +1,42 @@
+<html>
+    <body>
+            
+    </body>
+    <script>
+
+        function pipe(...fns)
+        {
+            return function(x)
+            {
+                return fns.reduce((input,f)=>f(input),x);
+            }
+        }
+        let double = (x)=>x*2;
+        let inc = (x)=>x+1;
+        
+        /* 
+        function add(x)
+        {
+            return function(y)
+            {
+                return x+y;
+            }
+            
+        }*/ 
+        function curry(fn)
+        {
+            return function(x)
+            {
+                return fn.length==1?fn(x): curry(fn.bind(null,x));
+            }
+        }
+        function add(x,y)
+        {
+            return x+y;
+        }
+        console.log('add(4) ',add(4));
+        let newFun = pipe(curry(add)(4),double,inc);
+       
+        console.log('newFun 3 ',newFun(3));
+    </script>
+</html>

@@ -1,0 +1,38 @@
+<html>
+    <body>
+            
+    </body>
+    <script>
+
+        function order()
+        {
+            console.log('Order');
+        }
+        function payment()
+        {
+            console.log('Payment');
+        }
+        function log(fn)
+        {
+            return function(...args)
+            {
+                console.log('Fucntion ',fn.name, ' started');
+                let value= fn(...args);
+                console.log('Fucntion ',fn.name, ' end');
+                return value;
+            }
+        }
+        function auth(fn)
+        {
+            return function(...args)
+            {
+                console.log('Auth');
+                return fn(...args);
+            }
+        }
+        payment = auth(log(payment));
+        order = auth(order);
+        payment();
+        order();
+    </script>
+</html>

@@ -1,0 +1,46 @@
+<html>
+    <body>
+            
+    </body>
+    <script>
+
+        function pipe(...fns)
+        {
+            return function(x)
+            {
+                return fns.reduce((input,f)=>f(input),x);
+            }
+        }
+        let double = (x)=>x*2;
+        let inc = (x)=>x+1;
+        
+        /* 
+        function add(x)
+        {
+            return function(y)
+            {
+                return x+y;
+            }
+            
+        }*/ 
+       
+        function api(url)
+        {
+            return function(config)
+            {
+                return function(method)
+                {
+                    console.log('Api ',url, 'config ',config,' method   ',method );
+                }
+            }
+            
+        }
+        let newFun = api;
+        let api1 = newFun('https://google.com')({
+            timeout:3000
+        });
+        console.log('api1 ',api1);
+        api1('GET');
+        api1('POST');
+    </script>
+</html>
