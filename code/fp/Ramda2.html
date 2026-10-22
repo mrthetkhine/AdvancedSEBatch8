@@ -1,0 +1,67 @@
+<html>
+    <body>
+            
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.31.3/dist/ramda.min.js"></script>
+    <script>
+        let students = [
+            {
+                name : "Aung Win",
+                gender:"Male",
+                age : 34,
+            },
+            {
+                name : "Win Win",
+                gender:"Female",
+                age : 14,
+            },
+            {
+                name : "Naing Win",
+                gender:"Male",
+                age : 22,
+            },
+            {
+                name : "Mya Mya Win",
+                gender:"Female",
+                age : 20,
+            },
+            {
+                name : "Kyaw Win",
+                gender:"Male",
+                age : 24,
+            },
+            {
+                name : "Hla Hla",
+                gender:"Female",
+                age : 32,
+            },
+
+        ];
+        const user1 = { 
+            name: "Jhon",
+            gender : "Male"
+         };
+        console.log('pathEq ',R.pathEq('Female',['gender'],user1));
+        let min = (a,b)=> a.age<b.age?a:b;
+        let fun = R.pipe(
+            R.filter(R.pathEq('Female',['gender'])),
+            R.reduce(min,[])
+        );
+        /*
+        let result = R.filter(R.pathEq('Female',['gender']),students);
+                        
+        console.log('result ',result); 
+        
+        console.log('reduce',R.reduce(min,[],result));
+        */
+       console.log('Fun ',fun(students));
+       const numbers = [1.0, 1.1, 1.2, 2.0, 3.0, 2.2];
+       console.log('count by ', R.countBy(Math.floor)(numbers));    //=> {'1': 3, '2': 2, '3': 1}
+
+       console.log('R.prop ',R.prop('name',user1));
+       result = R.collectBy(R.prop('gender'),students);
+       console.log('Result ',result);
+
+       console.log('groupBy ',R.groupBy(R.prop('gender'),students));
+    </script>
+</html>

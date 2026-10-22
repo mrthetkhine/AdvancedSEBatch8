@@ -24,5 +24,28 @@
         //a/b
         // x/2 + 5
         console.log('R.pipe ',R.pipe(R.flip(R.divide)(2),R.add(5))(10));
+        let obj = {
+            name : "Jhon",
+            age : 45,
+            /*
+            address: {
+                city:"YGN"
+            }*/
+        }
+        console.log('R.pick ',R.pick(['name','age'])(obj));
+        console.log('R.path ',R.path(['address','city'])(obj));
+        //obj.address.city = "MDY";
+        let obj2 = R.assocPath(['address','city'],'MDY',obj);
+        console.log('Obj2 ',obj2);
+
+        let fact = (n)=> R.reduce((a,b)=>a*b,1,R.range(1,n+1));
+        console.log('Fact 3 ',fact(3));
+
+        let fact2 = R.pipe(
+            R.inc,
+            R.range(1),
+            R.reduce(R.multiply,1)
+        )
+        console.log('fact2 3 ',fact2(3));
     </script>
 </html>

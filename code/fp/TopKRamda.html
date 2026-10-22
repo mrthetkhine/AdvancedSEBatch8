@@ -1,0 +1,52 @@
+<html>
+    <body>
+            
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.31.3/dist/ramda.min.js"></script>
+    <script>
+        let nums = [1,1,2,1,2,1,2,3,1,3,3,3], k = 2;
+        //1:5,2:3,3:4
+        /*
+            group ={
+                '1':5,
+                2:3,
+                3:4
+            }
+        */
+       /*
+       let group = R.countBy(R.identity)(nums);
+       console.log('Group ',group);
+       let arr = R.toPairs(group);
+       console.log('arr ',arr);
+
+       arr = R.sort((a,b)=>b[1]-a[1],arr);
+       console.log('arr ',arr);
+
+       let result = R.map(R.head,arr);
+       result  = R.take(k,result);
+       console.log('Top K ',result);
+       */ 
+      const log1 =(message,x)=>console.log(message,x);
+      const cLog = R.curry(log1); 
+      
+      log('X is',10);
+      let topK = R.pipe(
+        R.countBy(R.identity),
+        R.tap(cLog('After group')),
+
+        R.toPairs,
+        R.tap(cLog('After pairs')),
+
+        R.sort((a,b)=>b[1]-a[1]),
+        R.tap(cLog('After sofrt')),
+
+        R.map(R.head),
+        R.tap(cLog('After map')),
+        
+        R.take(k)
+      )
+      console.log('topK ',topK(nums));
+      const sayX = x => console.log('x is ' + x);
+      console.log('tap ',  R.tap(sayX, 100)); 
+    </script>
+</html>

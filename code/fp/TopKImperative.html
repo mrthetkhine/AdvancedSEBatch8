@@ -1,0 +1,39 @@
+<html>
+    <body>
+            
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.31.3/dist/ramda.min.js"></script>
+    <script>
+        let nums = [1,1,2,1,2,1,2,3,1,3,3,3], k = 2;
+        //1:5,2:3,3:4
+        /*
+            group ={
+                '1':5,
+                2:3,
+                3:4
+            }
+        */
+       let group ={};
+       for(const item of nums)
+       {
+            if(group[item])
+            {
+                group[item]++;
+            }
+            else
+            {
+                group[item]=1;
+            }
+       }
+       console.log('Group ',group);
+       let arr = Object.entries(group);
+       console.log('arr ',arr);
+
+       arr.sort((a,b)=>b[1]-a[1]);
+       console.log('arr ',arr);
+
+       let result = arr.map(ele=>ele[0]);
+       result.length = k;
+       console.log('Top K ',result);
+    </script>
+</html>
