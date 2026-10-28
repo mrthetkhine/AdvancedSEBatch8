@@ -1,0 +1,52 @@
+<html>
+    <body>
+            
+    </body>
+    <script src='./lib.js'>     </script>
+    <script>
+        let employees = {
+            1:{
+                name: "Jhon"
+            },
+            2:{
+                name: "Jim",
+                supervisor :1 
+            },
+            3:{
+                name:"Wick",
+                supervisor:2
+            }
+        }
+        function getSupervisor(empId)
+        {
+            if(empId)
+            {
+                let emp = employees[empId];
+                if(emp)
+                {
+                    let supervisor = emp.supervisor;
+                    if(supervisor)
+                    {
+                        let sup = employees[supervisor];
+                        if(sup)
+                        {
+                            return sup.name;
+                        }
+                    }
+                }
+            }
+        }
+        function getSupervisorV2(empId)
+        {
+            return MayBe.of(empId)
+                        .map(empId=>employees[empId])
+                        .map(emp=>emp.supervisor)
+                        .map(supId=>employees[supId])
+                        .map(sup=>sup.name)
+                        .orElse('');
+        }
+        console.log('getSupervisor(1) ',getSupervisorV2(1).valueOf());
+        console.log('getSupervisor(2) ',getSupervisorV2(2).valueOf());
+        console.log('getSupervisor(3) ',getSupervisorV2(3).valueOf());
+    </script>
+</html>

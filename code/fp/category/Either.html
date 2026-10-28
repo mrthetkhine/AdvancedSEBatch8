@@ -1,0 +1,63 @@
+<html>
+    <body>
+            
+    </body>
+    <script src='./lib.js'>     </script>
+    <script>
+        //Either = Just | Nothing
+        const Just = (value) => ({
+            valueOf()
+            {
+                return value;
+            },
+            
+            map(f)
+            {
+                return Just.of(f(value));
+            },
+            catch(fn)
+            {
+                return this;
+            }
+        });
+        Just.of = Just;
+        const Nothing = (value) => ({
+            valueOf()
+            {
+                return value;
+            },
+            
+            map(f)
+            {
+                return this;
+            },
+            catch(fn)
+            {
+                return fn(value);
+            }
+            
+        });
+        Nothing.of = Nothing;
+        function div(a,b)
+        {
+            if(isNaN(a) || isNaN(b))
+            {
+                return Nothing.of('A or B is NaN');
+            }
+            else
+            {
+                return Just.of(a/b);
+            }
+        }
+        div(10,2)
+            .map(x=>console.log('Result ',x))
+            .catch(err=>console.log(err));
+        div(10,NaN)
+            .map(x=>console.log('Result ',x))
+            .catch(err=>{
+                console.log(err);
+                return Just.of(10);
+            })
+            .map(x=>console.log('Result ',x));
+    </script>
+</html>

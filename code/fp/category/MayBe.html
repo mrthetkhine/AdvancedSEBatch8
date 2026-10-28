@@ -1,0 +1,43 @@
+<html>
+    <body>
+            
+    </body>
+    
+    <script>
+        const MayBe = (value) => ({
+            valueOf()
+            {
+                return value;
+            },
+            isEmpty()
+            {
+                return value==null || value==undefined;
+            },
+            map(f)
+            {
+                return this.isEmpty()?MayBe.of(null): MayBe.of(f(value));
+            },
+            orElse(defaultValue)
+            {
+                return this.isEmpty()?MayBe.of(defaultValue):MayBe.of(value);
+            }
+        });
+        MayBe.of = MayBe;
+        function toUpper(msg)
+        {
+            return msg.toUpperCase();
+        }
+        function appendHi(msg)
+        {
+            return msg.concat(' hi');
+        }
+        let data = 'hello';
+        data = null;
+        let result = MayBe.of(data)
+                          .map(appendHi)
+                          .map(toUpper)
+                          .orElse('empty ');  
+        //toUpper(appendHi(data));
+        console.log('Result ',result.valueOf());
+    </script>
+</html>

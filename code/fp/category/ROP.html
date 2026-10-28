@@ -1,0 +1,81 @@
+<html>
+    <body>
+            
+    </body>
+    <script src='./lib.js'>     </script>
+    <script>
+        const Left = (value) => ({
+            valueOf()
+            {
+                return value;
+            },
+            isLeft()
+            {
+                return true;
+            },
+            map(f)
+            {
+                return this;
+            },
+            /*
+                {
+                left()=
+                right()
+                }
+            */
+            matchWith(handler)
+            {
+                return handler.left(value);
+            }
+            
+        });
+        Left.of = Left;
+        const Right = (value) => ({
+            valueOf()
+            {
+                return value;
+            },
+            isLeft()
+            {
+                return false;
+            },
+            map(f)
+            {
+                return Right.of(f(value));
+            },
+            matchWith(handler)
+            {
+                return handler.right(value);
+            }
+        });
+        Right.of = Right;
+        
+        function div(a,b)
+        {
+            if(isNaN(a) || isNaN(b))
+            {
+                return Left.of('A or B is NaN');
+            }
+            else
+            {
+                return Right.of(a/b);
+            }
+        }
+        const double =(x)=>x*2;
+        div(10,NaN)
+            .matchWith({
+                left:(err)=>{
+                    console.log(err);
+                    return Right.of(10);
+                },
+                right:(result)=>Right.of(result)
+            })
+            .map(double)
+            .matchWith({
+                left:(err)=>{
+                    console.log(err);
+                },
+                right:(result)=>console.log('Success ',result)
+            })
+    </script>
+</html>

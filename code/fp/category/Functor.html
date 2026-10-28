@@ -1,0 +1,27 @@
+<html>
+    <body>
+            
+    </body>
+    
+    <script>
+        const Container = (value) => ({
+            valueOf()
+            {
+                return value;
+            },
+            map(f)
+            {
+                return Container.of(f(value));
+            }
+        });
+        Container.of = Container;
+        let count = 10;
+        const inc = (x)=>x+1;
+        const double = x=>x*2;
+        let c1 = Container.of(count)//Container(10)
+                          .map(inc)//Container(11)
+                          .map(double);
+        console.log('C1 ',c1.valueOf());  
+        console.log('Count ',count);
+    </script>
+</html>
