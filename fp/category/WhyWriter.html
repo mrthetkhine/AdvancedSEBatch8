@@ -1,0 +1,70 @@
+<html>
+   
+
+    <script>
+      //https://blog.klipse.tech/javascript/2016/08/31/monads-javascript.html
+      /*
+      function double(x)
+      {
+        //console.log('double ',x);
+        return x*2;
+      }
+      function inc(x)
+      {
+        return x+1;
+      }
+      function compose(funA,funB)
+      {
+        return function(input)
+        {
+          return funA(funB(input));
+        }
+      }
+      let newFun = compose(inc,double);
+      console.log(newFun(10));
+      */
+      function double(x)
+      {
+        //console.log('double ',x);
+        return [x*2,'double'];
+      }
+      function inc(x)
+      {
+        return [x+1,'inc'];
+      }
+      function composeDebug(funA,funB)
+      {
+        return function(input)
+        {
+         //console.log('input ',input);
+          let [x,log] = input;
+          let [result,log1] = funB(x);
+          let [result2,log2] = funA(result);
+          return [result2,log1+' '+log2];
+        }
+      }
+      function compose(funA,funB)
+      {
+        return function(input)
+        {
+          return funA(funB(input));
+        }
+      }
+      const unit=(x)=>[x,''];
+      let newFun = composeDebug(inc,double);
+      newFun = compose(newFun,unit);
+      
+      console.log(newFun(10));
+      
+      let bind = (f) => function(tuple) {
+            const [x, s] = tuple,
+            [y, t] = f(x);
+            return [y, s +' '+ t];
+      };
+      console.log('bind ',bind(inc)([10,'start']));
+
+      let newFun2 = compose(bind(double), bind(inc));
+      newFun2 = compose(newFun2,unit);
+      console.log('newFun2 ',newFun2(10));
+    </script>
+</html>

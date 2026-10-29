@@ -1,0 +1,31 @@
+<html>
+    <body>
+            
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.31.3/dist/ramda.min.js"></script>
+    <script>
+        const Container = (value) => ({
+            valueOf()
+            {
+                return value;
+            },
+            map(f)
+            {
+                return Container.of(f(value));
+            },
+            ap(other)
+            {
+                return other.map(value);
+            }
+        });
+        Container.of = Container;
+        let count = 10;
+        
+        let c1 = Container.of(count);
+        let c2 = Container.of(5);
+        let result = c1.map(R.add);//Container(R.add(10))
+        console.log('Result ',result.valueOf());
+        result = result.ap(c2);
+        console.log('Result ',result.valueOf());
+    </script>
+</html>

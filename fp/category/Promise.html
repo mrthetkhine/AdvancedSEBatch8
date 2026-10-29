@@ -1,0 +1,14 @@
+<html>
+    <body>
+            
+    </body>
+    <script src='./lib.js'>     </script>
+    <script>
+        Promise.reject(10)
+            .then(x=>x*2,err=>{
+                console.log(err);
+                return 15;
+            })
+            .then(data=>console.log('Result ',data))
+    </script>
+</html>

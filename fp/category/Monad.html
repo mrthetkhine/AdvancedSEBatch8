@@ -1,0 +1,102 @@
+<html>
+    <body>
+            
+    </body>
+    <script src='./lib.js'>     </script>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.31.3/dist/ramda.min.js"></script>
+    <script>
+        const Left = (value) => ({
+        valueOf()
+        {
+            return value;
+        },
+        isLeft()
+        {
+            return true;
+        },
+        map(f)
+        {
+            return this;
+        },
+        flatMap(fn)
+        {
+            return this;
+        },
+        /*
+            {
+            left()=
+            right()
+            }
+        */
+        matchWith(handler)
+        {
+            return handler.left(value);
+        }
+        
+    });
+    Left.of = Left;
+const Right = (value) => ({
+    valueOf()
+    {
+        return value;
+    },
+    isLeft()
+    {
+        return false;
+    },
+    map(f)
+    {
+        return Right.of(f(value));
+    },
+    flatMap(fn)
+    {
+        return fn(value);
+    },
+    matchWith(handler)
+    {
+        return handler.right(value);
+    }
+});
+Right.of = Right;
+       
+
+        function validateName(user)
+        {
+            console.log('User validateName ',user);
+            if(!user.name)
+            {
+                return Left.of('Name is empty');
+            }
+            else
+            {
+                return Right.of(user);
+            }
+        }
+        function validateEmail(user)
+        {
+            console.log('User validateEmail ',user);
+            if(!user.email.includes('@'))
+            {
+                return Left.of('Email is invalid');
+            }
+            else
+            {
+                return Right.of(user);
+            }
+        }
+        function toUpper(obj)
+        {
+            console.log('toUpper ',obj.valueOf());
+            return MayBe.of(obj.name)
+                        .map(name=>name.toUpperCase());
+        }
+         let obj = {
+            name: 'Jhon',
+            email:'mail@gmail.com'
+        }
+        validateName(obj)//Right.of(obj)
+            .flatMap(validateEmail)// Right.of(Right.of(obj));
+            .flatMap(toUpper)
+            .map(data=>console.log('Data ',data));
+    </script>
+</html>
