@@ -1,0 +1,52 @@
+<html>
+
+<script>
+    const minLength = len =>str => str.length>=len;
+    const maxLength = len =>str => str.length<=len;
+    const validEmail = email => email.includes('@');
+    const notEmpty = str=>str.length>0;
+    /*
+    let minLength3 = minLength(3);
+    console.log('minLength hi ',minLength3('hi'));
+    console.log('minLength how ',minLength3('how'));
+
+    
+    let maxLength3 = maxLength(3);
+    console.log('maxLength hi ',maxLength3('hi'));
+    console.log('maxLength how ',maxLength3('how'));
+    console.log('maxLength howa ',maxLength3('howa'));
+
+    
+    console.log('validEmail user@domain.com ',validEmail('user@domain.com'));
+    console.log('validEmail userdomain.com ',validEmail('userdomain.com'));
+
+    
+    console.log('notEmpty "" ',notEmpty(''));
+    console.log('notEmpty "hi" ',notEmpty('hi'));
+    */
+    function and(...fns)
+    {
+        return function(input)
+        {
+            return fns.reduce((acc,fn)=>acc && fn(input),true);
+        }
+    } 
+    let validator = and(notEmpty,minLength(3),maxLength(5));
+    console.log('validator "" ',validator('') );
+    console.log('validator "hi" ',validator('hi') );
+    console.log('validator "how" ',validator('how') );
+
+    function or(...fns)
+    {
+        return function(input)
+        {
+            return fns.reduce((acc,fn)=>acc || fn(input),false);
+        }
+    } 
+    let validator2 = and(notEmpty, or(validEmail,maxLength(5)));
+    console.log('validator2 "" ',validator2('') );
+    console.log('validator2 "hi" ',validator2('hi') );
+    console.log('validator2 "hello1" ',validator2('hello1') );
+</script>
+
+</html>

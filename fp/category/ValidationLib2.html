@@ -1,0 +1,144 @@
+<html>
+
+<script>
+    const Left = (value) => ({
+            valueOf()
+            {
+                return value;
+            },
+            isLeft()
+            {
+                return true;
+            },
+            map(f)
+            {
+                return this;
+            },
+            and(other)
+            {
+                return other.isLeft()?Left.of(value+ ', '+other.valueOf()):this;
+            }, 
+            or(other)
+            {
+                console.log('Left or ',this.valueOf(),' other isLeft ',other.isLeft());
+                return other.isLeft()?Left.of(value+ ', '+other.valueOf()):other;
+            },    
+            /*
+                {
+                left()=
+                right()
+                }
+            */
+            matchWith(handler)
+            {
+                return handler.left(value);
+            }
+            
+        });
+        Left.of = Left;
+        const Right = (value) => ({
+            valueOf()
+            {
+                return value;
+            },
+            isLeft()
+            {
+                return false;
+            },
+            map(f)
+            {
+                return Right.of(f(value));
+            },
+            and(other)
+            {
+                return other.isLeft()?other:this;
+            }, 
+            or(other)
+            {
+                return this;
+            },
+            matchWith(handler)
+            {
+                return handler.right(value);
+            }
+        });
+        Right.of = Right;
+    const minLength = len =>str => str.length>=len;
+    const maxLength = len =>str => str.length<=len;
+    const validEmail = email => email.includes('@');
+    const notEmpty = str=>str.length>0;
+    /*
+    ok->Right(input)
+    else->Left(errorMessage)
+    */
+    const minLength3= minLength(3);//input->boolean
+    const maxLength5 = maxLength(5); //input->boolean   
+    
+    function enhance(fn,errorMessage)
+    {
+        return function(input)
+        {
+            return (fn(input))?Right.of(input):Left.of(errorMessage);
+        }
+    }
+    function and(...fns)//[(input->boolean)]
+    {
+        return function(input)
+        {
+            return fns.reduce((acc,fn)=>acc && fn(input),true);
+        }
+    } 
+    function and2(...fns)//[(input->Either)]
+    {
+        return function(input)
+        {
+            return fns.reduce((acc,fn)=>acc.and( fn(input)),Right.of(input));
+        }
+    }
+    function or(...fns)
+    {
+        return function(input)
+        {
+            return fns.reduce((acc,fn)=>acc || fn(input),false);
+        }
+    } 
+    function or2(...fns)
+    {
+        return function(input)
+        {
+            return fns.reduce((acc,fn)=>acc.or(fn(input)),Left.of(''));
+        }
+    } 
+    const maxLength52 = enhance(maxLength5,'Max Length 5');
+    const validEmail2 = enhance(validEmail,'Invalid Email');
+    const notEmpty2 = enhance(notEmpty,'Empty String');
+    /*
+    const validation2 = and2(notEmpty2,validEmail2);
+    validation2('')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(val)=>console.log('Valid ',val)
+        });
+    validEmail2('me@gmail.com')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(val)=>console.log('Valid ',val)
+        });        
+    */
+    const validation3 = or2(maxLength52,validEmail2);    
+    
+    validation3('')
+        .matchWith({
+            left:(err)=>console.log('Error v3 ',err),
+            right:(val)=>console.log('Valid v3 ',val)
+        });
+    /*    
+    validation3('me@gmail.com')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(val)=>console.log('Valid ',val)
+        });  
+    */
+</script>
+
+</html>
